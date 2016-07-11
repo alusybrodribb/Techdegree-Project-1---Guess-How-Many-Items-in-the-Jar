@@ -24,6 +24,7 @@ public class Prompter {
 PLAY FUNCTION
 **************/
     public void play() {
+
         Console console = System.console();
         System.out.printf("Guess how many %s are in the jar. It could hold up to %d %s\n", mJar.getObjectType(), mJar.getMaxObjects(), mJar.getObjectType());
         while (! mJar.isSolved()) {
@@ -35,7 +36,9 @@ PLAY FUNCTION
         System.out.printf("You took %d tries to get it right.\n", mJar.getGuessCounter());
         System.out.printf("Your score was %d\n\n", mJar.score());
         checkHighScore();
- }
+
+
+    }
 
  /*****************
 PROMPT & DISPLAY FUNCTIOINS
@@ -44,7 +47,7 @@ PROMPT & DISPLAY FUNCTIOINS
       public boolean promptForGuess() {
         Console console = System.console();
         boolean isCorrect = false;
-        String guessAsString = console.readLine("Please enter a number between 0 and %d: ", mJar.getMaxObjects());
+        String guessAsString = console.readLine("Please enter a number of %s between 1 and %d: ", mJar.getObjectType(), mJar.getMaxObjects());
         try {
           isCorrect = mJar.applyGuess(guessAsString);
         }
@@ -77,14 +80,13 @@ HIGH SCORE FUNCTION
       //Loads high scores and makes sure they are in the correct order
       Console console = System.console();
       Score[] highScores = Scores.load();
-      Arrays.sort(highScores, Collections.reverseOrder());
+      Arrays.sort(highScores);
       if (mJar.score() > highScores[2].getScore()) {
         //Checks to see if player's score is high score and adds their
         //score to high score file if it is higher than the 3rd high score
-        String name = console.readLine("Congratulations, you got a High Score! Please enter your name: ");
-        Score newScore = new Score(name, mJar.score());
+        Score newScore = new Score(mJar.getPlayerName(), mJar.score());
         highScores[2] = newScore;
-        Arrays.sort(highScores, Collections.reverseOrder());
+        Arrays.sort(highScores);
         Scores.save(highScores);
         System.out.printf("\n");
       }
@@ -95,5 +97,6 @@ HIGH SCORE FUNCTION
       for (Score highScore : highScores) {
         System.out.println((index++) + ". " + highScore);
       }
+      System.out.println("");
     }
 }

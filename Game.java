@@ -18,7 +18,7 @@ public class Game {
       if (args.length == 0) {
         //Shows High Scores
         Score[] highScores = Scores.load();
-        Arrays.sort(highScores, Collections.reverseOrder());
+        Arrays.sort(highScores);
         System.out.println("High Scores");
         int index = 1;
         for (Score highScore : highScores) {
@@ -33,7 +33,6 @@ public class Game {
         int index = 1;
         for (Score highScore : highScores) {
           System.out.println((index++) + ". " + highScore);
-
         }
         Scores.save(highScores);
         System.exit(0);
@@ -51,8 +50,19 @@ public class Game {
       }
 
       //Initialises Jar class and runs game
-      Jar jar = new Jar(args[0], Integer.parseInt(args[1]));
-      Prompter prompter = new Prompter(jar);
-      prompter.play();
+      Score[] thisGameScores;
+      thisGameScores = new Score[3];
+      for(int i = 0; i < 3; i++) {
+        Jar jar = new Jar(args[0], Integer.parseInt(args[1]));
+        Prompter prompter = new Prompter(jar);
+        prompter.play();
+        Score playerScore = new Score(jar.getPlayerName(), jar.score());
+        thisGameScores[i] = playerScore;
+      }
+      System.out.printf("Scores for this Game\n");
+      int index = 1;
+      for (Score score : thisGameScores) {
+        System.out.println("Game " + (index++) + ". " + score);
+      }
     }
 }

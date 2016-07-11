@@ -1,7 +1,7 @@
 /*******************************************
 CLASS FOR SETTING INITIAL PARAMETERS OF JAR
 *******************************************/
-
+import java.io.Console;
 import java.util.Random;
 
 
@@ -11,13 +11,16 @@ public class Jar {
     private int mGuessCounter;
     private int mObjectsInJar;
     private boolean mIsCorrect;
+    private String mPlayerName;
 
     public Jar(String objectType, int maxObjects) {
+      Console console = System.console();
       mObjectType = objectType;
       mMaxObjects = maxObjects;
       mGuessCounter = 0;
-      mObjectsInJar = new Random().nextInt(maxObjects);
+      mObjectsInJar = new Random().nextInt(maxObjects) + 1;
       mIsCorrect = false;
+      mPlayerName = console.readLine("Hi! Please enter your name: ");
     }
 
 /***********************
@@ -32,7 +35,7 @@ GUESS APPLICATION
     public boolean applyGuess(int guess) {
       if (guess > mMaxObjects) {
         throw new IllegalArgumentException("The jar's not that big - try a smaller number! ");
-      } else if (guess < 0) {
+      } else if (guess < 1) {
         throw new IllegalArgumentException("Very funny - please guess a positive number.");
 
       }
@@ -71,6 +74,10 @@ GETTERS
 
     public boolean isSolved() {
         return mIsCorrect;
+    }
+
+    public String getPlayerName() {
+      return mPlayerName;
     }
 
 /***********************

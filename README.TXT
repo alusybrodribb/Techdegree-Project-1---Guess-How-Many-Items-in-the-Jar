@@ -23,6 +23,10 @@ Please make sure that no of objects is entered as an Integer
 2. Checking High Scores
 **************************
 
+//Upon reading the instructions prior to submitting, it looks like
+//I misunderstood them and didn't actually have to add this particular
+//functionality to my project. Oh well.
+
 To check high scores, run the Game class without entering any
 arguments (java Game). Only three high scores are stored at any
 one time.

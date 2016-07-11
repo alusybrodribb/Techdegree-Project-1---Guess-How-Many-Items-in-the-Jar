@@ -25,9 +25,15 @@ public class Score implements Comparable, Serializable {
   @Override
   public int compareTo(Object obj) {
     Score other = (Score) obj;
-    int highLow = Integer.toString(mScore).compareTo(Integer.toString(other.mScore));
-    return highLow;
+    if (mScore > other.mScore) {
+      return -1;
+    } else if (mScore < other.mScore) {
+      return +1;
+    } else {
+      return 0;
+    }
   }
+
 
   /*****************
   GETTERS
